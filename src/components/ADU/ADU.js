@@ -35,16 +35,16 @@ export default function ADU({ unit, removeADU, editADU }) {
 
   const cardText = moreInfo ? (
     <>
-      <div>Bedrooms: {bedrooms}</div>
-      <div>Bathrooms: {bathrooms}</div>
-      <div>
+      <Card.Text>Bedrooms: {bedrooms}</Card.Text>
+      <Card.Text>Bathrooms: {bathrooms}</Card.Text>
+      <Card.Text>
         Size: {sqft} ft<sup>2</sup>
-      </div>
+      </Card.Text>
     </>
   ) : (
     <>
-      <div>{address}</div>
-      <div>{price}</div>
+      <Card.Text>{address}</Card.Text>
+      <Card.Text>{price}</Card.Text>
     </>
   );
 
@@ -73,7 +73,7 @@ export default function ADU({ unit, removeADU, editADU }) {
         <Card.Title>
           {firstName} {lastName}
         </Card.Title>
-        <Card.Text>{cardText}</Card.Text>
+        {cardText}
       </Card.Body>
       <Card.Footer className={styles.footer}>
         <Button onClick={() => editADU(unit.id)} variant="outline-secondary">

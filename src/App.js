@@ -75,16 +75,12 @@ function App() {
 
   const submitEdit = (e, unit) => {
     e.preventDefault();
-
-    console.log(unit);
-
     unit.id = editId;
     const updatedData = data.filter(unit => unit.id !== editId).concat(unit);
-    console.log(updatedData);
     setData(updatedData);
+    setEditADUForm(false);
   };
 
-  //TODO: can't remove multiple
   const removeADU = id => {
     const newArray = data.filter(unit => unit.id !== id);
 
@@ -97,6 +93,7 @@ function App() {
     data.push(unit);
     setData(data);
     setNextId(nextId + 1);
+    setAddADUForm(false);
   };
 
   return (
@@ -105,7 +102,12 @@ function App() {
 
       <CardDeck className="cardDeck">
         {data.map(unit => (
-          <ADU unit={unit} removeADU={removeADU} editADU={editADU} />
+          <ADU
+            key={unit.id}
+            unit={unit}
+            removeADU={removeADU}
+            editADU={editADU}
+          />
         ))}
       </CardDeck>
 
