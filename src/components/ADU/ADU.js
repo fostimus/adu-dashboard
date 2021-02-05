@@ -13,15 +13,25 @@ price - string
 */
 
 export default function ADU({ unit, removeADU, editADU }) {
-  const [firstName, setFirstName] = useState(unit.firstName);
-  const [lastName, setLastName] = useState(unit.lastName);
-  const [address, setAddress] = useState(unit.address);
-  const [bedrooms, setBedrooms] = useState(unit.bedrooms);
-  const [bathrooms, setBathrooms] = useState(unit.bathrooms);
-  const [sqft, setSqft] = useState(unit.sqft);
-  const [price, setPrice] = useState(unit.price);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [address, setAddress] = useState("");
+  const [bedrooms, setBedrooms] = useState(0);
+  const [bathrooms, setBathrooms] = useState(0);
+  const [sqft, setSqft] = useState(0);
+  const [price, setPrice] = useState("");
 
   const [moreInfo, setMoreInfo] = useState(false);
+
+  useEffect(() => {
+    setFirstName(unit.firstName);
+    setLastName(unit.lastName);
+    setAddress(unit.address);
+    setBedrooms(unit.bedrooms);
+    setBathrooms(unit.bathrooms);
+    setSqft(unit.sqft);
+    setPrice(unit.price);
+  }, [unit]);
 
   const cardText = moreInfo ? (
     <>
