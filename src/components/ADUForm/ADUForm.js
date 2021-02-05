@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-export default function ADUForm({ onSubmit }) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [bedrooms, setBedrooms] = useState(0);
-  const [bathrooms, setBathrooms] = useState(0);
-  const [sqft, setSqft] = useState(0);
-  const [price, setPrice] = useState("");
+export default function ADUForm({ unit, onSubmit }) {
+  const [firstName, setFirstName] = useState(unit ? unit.firstName : "");
+  const [lastName, setLastName] = useState(unit ? unit.lastName : "");
+  const [address, setAddress] = useState(unit ? unit.address : "");
+  const [bedrooms, setBedrooms] = useState(unit ? unit.bedrooms : 0);
+  const [bathrooms, setBathrooms] = useState(unit ? unit.bathrooms : 0);
+  const [sqft, setSqft] = useState(unit ? unit.sqft : 0);
+  const [price, setPrice] = useState(unit ? unit.price : "");
 
-  const unit = {
+  const newUnit = {
     firstName,
     lastName,
     address,
@@ -27,6 +27,7 @@ export default function ADUForm({ onSubmit }) {
         <Form.Control
           type="text"
           placeholder="First name"
+          value={firstName}
           onChange={e => setFirstName(e.target.value)}
         />
       </Form.Group>
@@ -35,6 +36,7 @@ export default function ADUForm({ onSubmit }) {
         <Form.Control
           type="text"
           placeholder="Last name"
+          value={lastName}
           onChange={e => setLastName(e.target.value)}
         />
       </Form.Group>
@@ -44,6 +46,7 @@ export default function ADUForm({ onSubmit }) {
         <Form.Control
           type="text"
           placeholder="Address"
+          value={address}
           onChange={e => setAddress(e.target.value)}
         />
       </Form.Group>
@@ -53,6 +56,7 @@ export default function ADUForm({ onSubmit }) {
         <Form.Control
           type="number"
           placeholder="# of bedrooms"
+          value={bedrooms}
           onChange={e => setBedrooms(e.target.value)}
         />
       </Form.Group>
@@ -62,6 +66,7 @@ export default function ADUForm({ onSubmit }) {
         <Form.Control
           type="number"
           placeholder="# of bathrooms"
+          value={bathrooms}
           onChange={e => setBathrooms(e.target.value)}
         />
       </Form.Group>
@@ -71,6 +76,7 @@ export default function ADUForm({ onSubmit }) {
         <Form.Control
           type="number"
           placeholder="sqft"
+          value={sqft}
           onChange={e => setSqft(e.target.value)}
         />
       </Form.Group>
@@ -80,10 +86,15 @@ export default function ADUForm({ onSubmit }) {
         <Form.Control
           type="text"
           placeholder="Price"
+          value={price}
           onChange={e => setPrice(e.target.value)}
         />
       </Form.Group>
-      <Button onClick={e => onSubmit(e, unit)} variant="primary" type="submit">
+      <Button
+        onClick={e => onSubmit(e, newUnit)}
+        variant="primary"
+        type="submit"
+      >
         Submit
       </Button>
     </Form>

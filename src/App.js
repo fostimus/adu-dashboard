@@ -64,14 +64,19 @@ const mockData = [
 function App() {
   const [data, setData] = useState(mockData);
   const [addADUForm, setAddADUForm] = useState(false);
+  const [editADUForm, setEditADUForm] = useState(false);
+  const [editId, setEditId] = useState(0);
   const [nextId, setNextId] = useState(3);
 
   const editADU = id => {
-    // edit from mockData array
+    setEditADUForm(!editADUForm);
+    setEditId(id);
   };
 
+  //TODO: can't remove multiple
   const removeADU = id => {
     const newArray = mockData.filter(unit => unit.id !== id);
+
     setData(newArray);
   };
 
@@ -88,7 +93,7 @@ function App() {
     <div className="App">
       <h1>ADU Dashboard</h1>
 
-      <CardDeck>
+      <CardDeck className="cardDeck">
         {data.map(unit => (
           <ADU unit={unit} removeADU={removeADU} editADU={editADU} />
         ))}
@@ -100,7 +105,15 @@ function App() {
         </Button>
       </div>
 
-      <ADUForm onSubmit={addADU} />
+      {addADUForm ? <ADUForm onSubmit={addADU} /> : <></>}
+      {editADUForm ? (
+        <ADUForm
+          unit={mockData.filter(unit => unit.id === editId)[0]}
+          onSubmit={addADU}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
