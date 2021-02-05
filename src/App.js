@@ -31,11 +31,12 @@ Share the git rep link !
 
 /*
 differently:
-- add ADUContainer
+- add ADUContainer - used CardDeck from bootstrap instead
 - get data from API
-- change state on ADU to unit, instead of each field
-- divs on each label/input
-- use css framework
+- change state on ADU to unit, instead of each field - decided against
+- divs on each label/input - not needed
+- use css framework - added bootstrap
+- use useEffect - added
 */
 
 const mockData = [
@@ -66,7 +67,7 @@ function App() {
   const [addADUForm, setAddADUForm] = useState(false);
   const [editADUForm, setEditADUForm] = useState(false);
   const [editId, setEditId] = useState(0);
-  const [nextId, setNextId] = useState(3);
+  const [nextId, setNextId] = useState(mockData.length + 1);
 
   const editADU = id => {
     setEditADUForm(!editADUForm);
