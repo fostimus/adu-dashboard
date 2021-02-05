@@ -120,7 +120,7 @@ function App() {
       {addADUForm ? <ADUForm onSubmit={addADU} /> : <></>}
       {editADUForm ? (
         <ADUForm
-          unit={mockData.filter(unit => unit.id === editId)[0]}
+          unit={data.filter(unit => unit.id === editId)[0]}
           onSubmit={submitEdit}
         />
       ) : (
