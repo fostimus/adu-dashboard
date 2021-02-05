@@ -1,0 +1,8 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+
+  --footer-horizontal-padding: 75px;
+  padding-left: var(--footer-horizontal-padding);
+  padding-right: var(--footer-horizontal-padding);
+}

@@ -1,8 +1,8 @@
-import logo from "./logo.svg";
 import "./App.css";
 import ADU from "./components/ADU";
+import ADUForm from "./components/ADUForm";
 import { useState } from "react";
-import { CardDeck } from "react-bootstrap";
+import { CardDeck, Button, Form } from "react-bootstrap";
 
 /**
  * List of ADU’s as react app
@@ -63,10 +63,7 @@ const mockData = [
 
 function App() {
   const [data, setData] = useState(mockData);
-  const [displayList, setDisplayList] = useState(false);
   const [addADUForm, setAddADUForm] = useState(false);
-  const [newFirstName, setNewFirstName] = useState("");
-  const [newLastName, setNewLastName] = useState("");
 
   const editADU = id => {
     // edit from mockData array
@@ -74,7 +71,6 @@ function App() {
 
   const removeADU = id => {
     const newArray = mockData.filter(unit => unit.id !== id);
-    console.log(newArray);
     setData(newArray);
   };
 
@@ -123,23 +119,20 @@ function App() {
   return (
     <div className="App">
       <h1>ADU Dashboard</h1>
-      <div className="controls">
-        <button onClick={() => setDisplayList(!displayList)}>
-          Display Current ADUs
-        </button>
-        <button onClick={() => setAddADUForm(!addADUForm)}>Add New ADU</button>
-      </div>
 
       <CardDeck>
-        {displayList ? (
-          data.map(unit => (
-            <ADU unit={unit} removeADU={removeADU} editADU={editADU} />
-          ))
-        ) : (
-          <></>
-        )}
+        {data.map(unit => (
+          <ADU unit={unit} removeADU={removeADU} editADU={editADU} />
+        ))}
       </CardDeck>
-      {addForm}
+
+      <div className="controls">
+        <Button variant="success" onClick={() => setAddADUForm(!addADUForm)}>
+          Add New ADU
+        </Button>
+      </div>
+
+      <ADUForm />
     </div>
   );
 }

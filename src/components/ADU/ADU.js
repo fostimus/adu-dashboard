@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Card, Nav } from "react-bootstrap";
+import { Card, Nav, Button } from "react-bootstrap";
+import styles from "./adu.module.css";
 
 /*
 First Name of owner - string
@@ -20,42 +21,57 @@ export default function ADU({ unit, removeADU, editADU }) {
   const [sqft, setSqft] = useState(unit.sqft);
   const [price, setPrice] = useState(unit.price);
 
-  // <>
-  //   <div>
-  //     <h2>ADU</h2>
-  //     <p>FirstName: {firstName}</p>
-  //     <p>LastName: {lastName}</p>
-  //     <p>Address: {address}</p>
-  //     <p># of Bedrooms: {bedrooms}</p>
-  //     <p># of Bathrooms: {bathrooms}</p>
-  //     <p>Square Feet: {sqft}</p>
-  //     <p>Price: {price}</p>
-  //   </div>
-  //   <button onClick={() => editADU(unit.id)}>Edit me</button>
-  //   <button onClick={() => removeADU(unit.id)}>Remove me</button>
-  // </>
+  const [moreInfo, setMoreInfo] = useState(false);
+
+  const cardText = moreInfo ? (
+    <>
+      <div>Bedrooms: {bedrooms}</div>
+      <div>Bathrooms: {bathrooms}</div>
+      <div>
+        Size: {sqft} ft<sup>2</sup>
+      </div>
+    </>
+  ) : (
+    <>
+      <div>{address}</div>
+      <div>{price}</div>
+    </>
+  );
 
   return (
     <Card>
       <Card.Header>
         <Nav variant="tabs" defaultActiveKey="#first">
           <Nav.Item>
-            <Nav.Link href="#first">Profile</Nav.Link>
+            <Nav.Link href="#first" onClick={() => setMoreInfo(false)}>
+              Profile
+            </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="#link">More Info</Nav.Link>
+            <Nav.Link href="#link" onClick={() => setMoreInfo(true)}>
+              More Info
+            </Nav.Link>
           </Nav.Item>
         </Nav>
       </Card.Header>
-      <Card.Img variant="top" src="holder.js/100px160" />
+      <Card.Img
+        variant="top"
+        src="https://picsum.photos/200/100
+        "
+      />
       <Card.Body>
         <Card.Title>
           {firstName} {lastName}
         </Card.Title>
-        <Card.Text>{address}</Card.Text>
+        <Card.Text>{cardText}</Card.Text>
       </Card.Body>
-      <Card.Footer>
-        <small className="text-muted">Last updated 3 mins ago</small>
+      <Card.Footer className={styles.footer}>
+        <Button onClick={() => editADU(unit.id)} variant="outline-secondary">
+          Edit me
+        </Button>
+        <Button onClick={() => removeADU(unit.id)} variant="outline-danger">
+          Remove me
+        </Button>
       </Card.Footer>
     </Card>
   );
