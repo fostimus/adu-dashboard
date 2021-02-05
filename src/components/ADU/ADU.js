@@ -39,7 +39,7 @@ export default function ADU({ unit, removeADU, editADU }) {
   );
 
   return (
-    <Card>
+    <Card className={styles.card}>
       <Card.Header>
         <Nav variant="tabs" defaultActiveKey="#first">
           <Nav.Item>

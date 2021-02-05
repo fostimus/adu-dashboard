@@ -64,6 +64,7 @@ const mockData = [
 function App() {
   const [data, setData] = useState(mockData);
   const [addADUForm, setAddADUForm] = useState(false);
+  const [nextId, setNextId] = useState(3);
 
   const editADU = id => {
     // edit from mockData array
@@ -74,47 +75,14 @@ function App() {
     setData(newArray);
   };
 
-  const addADU = event => {
+  const addADU = (event, unit) => {
     event.preventDefault();
-    const newArray = data;
-    // newArray.push();
-    // console.log(newArray);
-    setData(newArray);
+    unit.id = nextId;
+    data.push(unit);
+    console.log(data);
+    setData(data);
+    setNextId(nextId + 1);
   };
-
-  const addForm = addADUForm ? (
-    <form action="" className="form">
-      <label htmlFor="firstName">First Name</label>
-      <input
-        onChange={event => setNewFirstName(event.target.value)}
-        name="firstName"
-        type="text"
-      />
-
-      <label htmlFor="LastName">Last Name</label>
-      <input
-        onChange={event => setNewLastName(event.target.value)}
-        name="lastName"
-        type="text"
-      />
-
-      <label htmlFor="address">Address</label>
-      <input name="address" type="text" />
-
-      <label htmlFor="bedrooms">Number of Bedrooms</label>
-      <input name="bedrooms" type="text" />
-
-      <label htmlFor="bathrooms">Number of bathrooms</label>
-      <input name="bathrooms" type="text" />
-
-      <label htmlFor="squarefeet">Square Feet</label>
-      <input name="squarefeet" type="text" />
-
-      <button onClick={addADU}>Add ADU</button>
-    </form>
-  ) : (
-    <></>
-  );
 
   return (
     <div className="App">
@@ -132,7 +100,7 @@ function App() {
         </Button>
       </div>
 
-      <ADUForm />
+      <ADUForm onSubmit={addADU} />
     </div>
   );
 }
