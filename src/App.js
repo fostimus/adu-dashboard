@@ -73,18 +73,28 @@ function App() {
     setEditId(id);
   };
 
+  const submitEdit = (e, unit) => {
+    e.preventDefault();
+
+    console.log(unit);
+
+    unit.id = editId;
+    const updatedData = data.filter(unit => unit.id !== editId).concat(unit);
+    console.log(updatedData);
+    setData(updatedData);
+  };
+
   //TODO: can't remove multiple
   const removeADU = id => {
-    const newArray = mockData.filter(unit => unit.id !== id);
+    const newArray = data.filter(unit => unit.id !== id);
 
     setData(newArray);
   };
 
-  const addADU = (event, unit) => {
-    event.preventDefault();
+  const addADU = (e, unit) => {
+    e.preventDefault();
     unit.id = nextId;
     data.push(unit);
-    console.log(data);
     setData(data);
     setNextId(nextId + 1);
   };
@@ -109,7 +119,7 @@ function App() {
       {editADUForm ? (
         <ADUForm
           unit={mockData.filter(unit => unit.id === editId)[0]}
-          onSubmit={addADU}
+          onSubmit={submitEdit}
         />
       ) : (
         <></>
