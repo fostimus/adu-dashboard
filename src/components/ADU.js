@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 /*
 First Name of owner - string
@@ -10,14 +10,29 @@ Sqft - integer
 price - string
 */
 
-export default function ADU() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [bedrooms, setBedrooms] = useState(0);
-  const [bathrooms, setBathrooms] = useState(0);
-  const [sqft, setSqft] = useState(0);
-  const [price, setPrice] = useState("");
+export default function ADU({ unit, removeADU, editADU }) {
+  const [firstName, setFirstName] = useState(unit.firstName);
+  const [lastName, setLastName] = useState(unit.lastName);
+  const [address, setAddress] = useState(unit.address);
+  const [bedrooms, setBedrooms] = useState(unit.bedrooms);
+  const [bathrooms, setBathrooms] = useState(unit.bathrooms);
+  const [sqft, setSqft] = useState(unit.sqft);
+  const [price, setPrice] = useState(unit.price);
 
-  return <div>MyComponent</div>;
+  return (
+    <>
+      <div>
+        <h2>ADU</h2>
+        <p>FirstName: {firstName}</p>
+        <p>LastName: {lastName}</p>
+        <p>Address: {address}</p>
+        <p># of Bedrooms: {bedrooms}</p>
+        <p># of Bathrooms: {bathrooms}</p>
+        <p>Square Feet: {sqft}</p>
+        <p>Price: {price}</p>
+      </div>
+      <button onClick={() => editADU(unit.id)}>Edit me</button>
+      <button onClick={() => removeADU(unit.id)}>Remove me</button>
+    </>
+  );
 }
