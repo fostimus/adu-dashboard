@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import ADU from "./components/ADU";
 import { useState } from "react";
+import { CardDeck } from "react-bootstrap";
 
 /**
  * List of ADU’s as react app
@@ -80,8 +81,8 @@ function App() {
   const addADU = event => {
     event.preventDefault();
     const newArray = data;
-    newArray.push({ firstName: newFirstName, lastName: newLastName });
-    console.log(newArray);
+    // newArray.push();
+    // console.log(newArray);
     setData(newArray);
   };
 
@@ -129,13 +130,15 @@ function App() {
         <button onClick={() => setAddADUForm(!addADUForm)}>Add New ADU</button>
       </div>
 
-      {displayList ? (
-        data.map(unit => (
-          <ADU unit={unit} removeADU={removeADU} editADU={editADU} />
-        ))
-      ) : (
-        <></>
-      )}
+      <CardDeck>
+        {displayList ? (
+          data.map(unit => (
+            <ADU unit={unit} removeADU={removeADU} editADU={editADU} />
+          ))
+        ) : (
+          <></>
+        )}
+      </CardDeck>
       {addForm}
     </div>
   );
