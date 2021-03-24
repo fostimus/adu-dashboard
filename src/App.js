@@ -3,6 +3,7 @@ import ADU from "./components/ADU";
 import ADUForm from "./components/ADUForm";
 import { useState } from "react";
 import { CardDeck, Button, Form } from "react-bootstrap";
+import _ from "lodash";
 
 /**
  * List of ADU’s as react app
@@ -69,6 +70,9 @@ function App() {
   const [editId, setEditId] = useState(0);
   const [nextId, setNextId] = useState(mockData.length + 1);
 
+  const [filterField, setFilterField] = useState("");
+  const [filterValue, setFilterValue] = useState("");
+
   const editADU = id => {
     setEditADUForm(!editADUForm);
     setEditId(id);
@@ -97,6 +101,13 @@ function App() {
     setAddADUForm(false);
   };
 
+  const filter = e => {
+    setFilterValue(e.target.value);
+    console.log(
+      data.filter(unit => String(unit[filterField]).startsWith(e.target.value))
+    );
+  };
+
   return (
     <div className="App">
       <h1>ADU Dashboard</h1>
@@ -113,6 +124,26 @@ function App() {
       </CardDeck>
 
       <div className="controls">
+        <form action="">
+          <input
+            type="text"
+            placeholder="Filter..."
+            onChange={e => filter(e)}
+            value={filterValue}
+          />
+          <select
+            name="filterValues"
+            id="filterValues"
+            onChange={e => {
+              setFilterValue("");
+              setFilterField(e.target.value);
+            }}
+          >
+            {Object.keys(data[0]).map(field =>
+              field !== "id" ? <option value={field}>{field}</option> : <></>
+            )}
+          </select>
+        </form>
         <Button variant="success" onClick={() => setAddADUForm(!addADUForm)}>
           Add New ADU
         </Button>
