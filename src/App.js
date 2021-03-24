@@ -140,7 +140,13 @@ function App() {
             }}
           >
             {Object.keys(data[0]).map(field =>
-              field !== "id" ? <option value={field}>{field}</option> : <></>
+              field !== "id" ? (
+                <option value={field} key={field}>
+                  {formatField(field)}
+                </option>
+              ) : (
+                <></>
+              )
             )}
           </select>
         </form>
@@ -163,3 +169,25 @@ function App() {
 }
 
 export default App;
+
+//TODO: find a way to make this agnostic to length. will just work on ANY field
+// currently: only of the form fieldForm or just field
+function formatField(field) {
+  let regex = /^([a-z]+)([A-Z][a-z]+)?$/;
+
+  const groups = field.match(regex);
+
+  console.log(groups);
+
+  // groups[0] is the overall match
+  // groups[1, 2] are the capture groups
+  if (groups[2] === undefined) {
+    return uppercaseString(groups[1]);
+  } else {
+    return uppercaseString(groups[1]) + " " + uppercaseString(groups[2]);
+  }
+}
+
+function uppercaseString(str) {
+  return str[0].toUpperCase() + str.slice(1);
+}
